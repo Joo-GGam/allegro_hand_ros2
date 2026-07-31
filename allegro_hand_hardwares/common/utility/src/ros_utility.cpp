@@ -189,6 +189,13 @@ void HardwareInfoParser::_load_initial_pd_gains(const hardware_interface::Hardwa
     if (d_it != sysinfo.hardware_parameters.end()) {
       d_gain_table_[i] = std::atof(d_it->second.c_str());
     }
+
+    // Load torque limits (normalized duty [0,1]); falls back to default_torque_limit_table if absent.
+    std::string torque_key = "torque_" + sdk_ordered_joint_base_names_.at(i);
+    auto t_it = sysinfo.hardware_parameters.find(torque_key);
+    if (t_it != sysinfo.hardware_parameters.end()) {
+      torque_limit_table_[i] = std::atof(t_it->second.c_str());
+    }
   }
 }
 

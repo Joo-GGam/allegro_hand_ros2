@@ -3,6 +3,10 @@
 The `allegro_hand_v4_hardware` package provides a `ros2_control` hardware interface for the Allegro Hand V4.
 This package functions as a hardware interface plugin (`hardware_interface::SystemInterface`) for the `ros2_control` framework. It acts as a bridge, enabling ROS 2 controllers to communicate with the physical Allegro Hand hardware, offering a standardized method for reading joint states and sending commands.
 
+## Joint 보기
+ros2 run joint_state_publisher_gui joint_state_publisher_gui
+
+
 ---
 ## 1. Key Features
 

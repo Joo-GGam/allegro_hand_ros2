@@ -1,37 +1,97 @@
-# proportial
+# PD gains: 100 Hz replay 분석 (Debug_results/replay_no_loag(100hz)) 기반 차등 튜닝.
+# Kd: overshoot 강도별 0.10–0.16 차등.
+# Kp: plateau gravity sag 큰 3 joint 만 ↑ (joint00 / joint01 / joint21).
+# 나머지는 학습 nominal (Kp=3.0, Kd=0.1) 유지.
 p_gains:
-  joint00: 0.8333
-  joint01: 0.5833
-  joint02: 0.5000
-  joint03: 0.5000
-  joint10: 0.4167
-  joint11: 0.6667
-  joint12: 0.7500
-  joint13: 0.4167
-  joint20: 0.4167
-  joint21: 0.6667
-  joint22: 0.7500
-  joint23: 0.4167
-  joint30: 0.4167
-  joint31: 0.6667
-  joint32: 0.7500
-  joint33: 0.4167
+  joint00: 3   
+  joint01: 1.6    
+  joint02: 2.5
+  joint03: 2.0
+  joint10: 2.5
+  joint11: 1.5
+  joint12: 1.5
+  joint13: 1.8
+  joint20: 1.73
+  joint21: 2.8  
+  joint22: 1.65
+  joint23: 1.7
+  joint30: 2.25
+  joint31: 2.2
+  joint32: 1.75
+  joint33: 1.7
 
-#derivative
 d_gains:
-  joint00: 0.0417
-  joint01: 0.0417
-  joint02: 0.0417
-  joint03: 0.0333
-  joint10: 0.0208
-  joint11: 0.0417
-  joint12: 0.0458
-  joint13: 0.0333
-  joint20: 0.0208
-  joint21: 0.0417
-  joint22: 0.0458
-  joint23: 0.0333
-  joint30: 0.0208
-  joint31: 0.0417
-  joint32: 0.0458
-  joint33: 0.0333
+  joint00: 0.14  # thj0  
+  joint01: 0.10  # thj1 
+  joint02: 0.12  # thj2  
+  joint03: 0.10  # thj3
+  joint10: 0.135  # ffj0 
+  joint11: 0.110  # ffj1  
+  joint12: 0.095  # ffj2  
+  joint13: 0.100  # ffj3 
+  joint20: 0.10  # mfj0
+  joint21: 0.130  # mfj1  
+  joint22: 0.100  # mfj2
+  joint23: 0.100  # mfj3 
+  joint30: 0.120  # rfj0
+  joint31: 0.120  # rfj1
+  joint32: 0.100  # rfj2
+  joint33: 0.100  # rfj3
+
+# Per-joint max torque limit, normalized duty [0.0, 1.0] (1.0 = TORQUE2PWM(1200) PWM = saturation).
+# Seeds 2_torque_limit/<Finger>/<joint> runtime params; clamps torque in v4_sdk.cpp:407.
+# 초기값 = 드라이버 하드코딩 default_torque_limit_table (v4_hardware_interface.cpp:594-599).
+torque_limits:
+  joint00: 0.8  # Thumb roll
+  joint01: 0.8  # Thumb near
+  joint02: 0.8  # Thumb middle
+  joint03: 0.8  # Thumb far
+  joint10: 0.8  # Index roll
+  joint11: 0.8  # Index near
+  joint12: 0.8  # Index middle
+  joint13: 0.8 # Index far
+  joint20: 0.8  # Middle roll
+  joint21: 0.8  # Middle near
+  joint22: 0.8  # Middle middle
+  joint23: 0.8  # Middle far
+  joint30: 0.8  # Ring roll
+  joint31: 0.8  # Ring near
+  joint32: 0.8  # Ring middle
+  joint33: 0.8  # Ring far
+
+
+# torque_limits:
+#   joint00: 0.738  # Thumb roll
+#   joint01: 0.538  # Thumb near
+#   joint02: 0.525  # Thumb middle
+#   joint03: 0.525  # Thumb far
+#   joint10: 0.712  # Index roll
+#   joint11: 0.562  # Index near
+#   joint12: 0.575  # Index middle
+#   joint13: 0.537  # Index far
+#   joint20: 0.512  # Middle roll
+#   joint21: 0.662  # Middle near
+#   joint22: 0.575  # Middle middle
+#   joint23: 0.537  # Middle far
+#   joint30: 0.612  # Ring roll
+#   joint31: 0.562  # Ring near
+#   joint32: 0.575  # Ring middle
+#   joint33: 0.537  # Ring far
+
+  # torque_limits: Default
+  # joint00: 0.438  # Thumb roll
+  # joint01: 0.338  # Thumb near
+  # joint02: 0.225  # Thumb middle
+  # joint03: 0.225  # Thumb far
+  # joint10: 0.312  # Index roll
+  # joint11: 0.562  # Index near
+  # joint12: 0.375  # Index middle
+  # joint13: 0.237  # Index far
+  # joint20: 0.312  # Middle roll
+  # joint21: 0.562  # Middle near
+  # joint22: 0.375  # Middle middle
+  # joint23: 0.237  # Middle far
+  # joint30: 0.312  # Ring roll
+  # joint31: 0.562  # Ring near
+  # joint32: 0.375  # Ring middle
+  # joint33: 0.237  # Ring far
