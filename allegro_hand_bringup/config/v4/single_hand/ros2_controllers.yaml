@@ -1,6 +1,6 @@
 controller_manager:
   ros__parameters:
-    update_rate: 100  # Hz  
+    update_rate: 333  # Hz  (원익 기본 100. 엔코더 3 ms 주기·linux_v4 PD 333 Hz에 맞춤, 2026-10-23 실험)
 
     joint_state_broadcaster:
       type: joint_state_broadcaster/JointStateBroadcaster
